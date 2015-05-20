@@ -135,7 +135,7 @@ end
 function SlashCmdList.STOPATTACK(msg, editbox)
 	if isAttacking then
 		isAttacking = nil
-		CastSpellByName("Attack")
+		AttackTarget()
 	end
 end
 
