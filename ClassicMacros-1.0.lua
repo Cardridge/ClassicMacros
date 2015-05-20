@@ -126,11 +126,15 @@ function SlashCmdList.CANCELAURA(msg, editbox)
 end
 
 function SlashCmdList.STARTATTACK(msg, editbox)
-	AttackTarget()
+	if not isAttacking then
+		isAttacking = 1
+		AttackTarget()
+	end
 end
 
 function SlashCmdList.STOPATTACK(msg, editbox)
 	if isAttacking then
+		isAttacking = nil
 		CastSpellByName("Attack")
 	end
 end
