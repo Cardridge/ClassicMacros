@@ -34,8 +34,11 @@ scantip:SetOwner(WorldFrame, "ANCHOR_NONE")
 local function onEvent()
 	if event == "PLAYER_ENTER_COMBAT" then
 		isAttacking = 1
+		IsCasting = 0
+		startspam = nil
 	else
 		isAttacking = nil
+		stopspam = nil
 	end
 end
 
@@ -126,9 +129,14 @@ function SlashCmdList.CANCELAURA(msg, editbox)
 end
 
 function SlashCmdList.STARTATTACK(msg, editbox)
-	if not isAttacking then
-		isAttacking = 1
+	if not isAttacking or not UnitExists("target") then
 		AttackTarget()
+		isAttacking = 1
+	else
+		local assist = GetCVar("assistAttack")
+		SetCVar("assistAttack",1)
+		AssistUnit("player")
+		SetCVar("assistAttack",assist)
 	end
 end
 
